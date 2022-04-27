@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DayLegendModalComponent } from './day-legend-Modal/day-legend-Modal.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     PersonalizeMenuComponent,
     MonthComponent,
+    DayLegendModalComponent,
 
   ],
   imports: [

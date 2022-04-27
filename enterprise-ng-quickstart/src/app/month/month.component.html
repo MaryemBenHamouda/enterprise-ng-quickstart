@@ -1,19 +1,85 @@
-<div soho-calendar
-    [month]="initialMonth"
-    [year]="initialYear"
-    [showViewChanger]="showViewChanger"
-    [selectedCallback]="onCalendarDateSelectedCallback"
+<form [formGroup]="formDayLegend">
+  <label>Type</label>
+
+  <div class="field">
+    <button id="popupmenu-trigger" soho-menu-button menu="my-menu">
+      Day Legend
+    </button>
+  </div>
+  <div class="row">
+    <div class="tow columns">
+      <div class="row flex-align-bottom">
+        <div>
+        <label for="start" class="label">Start</label>
+        <input
+          soho-datepicker
+          id="start"
+          name="start"
+          dateFormat="MM/dd/yyyy"
+          mode="standard"
+          placeholder="MM/dd/yyyy"
+          formControlName="start"
+        />
+      </div>
+      <div>
+        <label for="end" class="label">End</label>
+        <input
+          soho-datepicker
+          id="end"
+          name="end"
+          dateFormat="MM/dd/yyyy"
+          mode="standard"
+          placeholder="MM/dd/yyyy"
+          formControlName="end"
+        />
+      </div>
+      </div>
+    </div>
+    <div class="row flex-align-bottom">
+      <div class="switch box"
+        formArrayName="dayOfWeek"
+        *ngFor="
+          let dayOfWeekFilter of dayofweekFormArray.controls;
+          let i = index
+        "
+      >
+      
+        <input  
+          soho-checkbox
+          type="checkbox"
+          [switch]="true"
+          [value]="dayofweek[i].name"
+          (change)="onChange(i, $event.target.checked)"
+          [formControlName]="i"
+          [attr.id]="dayofweek[i].name"
+          [name]="dayofweek[i].name"
+        />
+        <label soho-label [attr.for]="dayofweek[i].name" [forCheckBox]="true"
+          >{{ dayofweek[i].name }}
+        </label>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="btn" >
+<button (click)="save()" soho-button="primary">Save</button></div>
+
+<div
+  soho-calendar
+  [month]="initialMonth"
+  [year]="initialYear"
+  [showViewChanger]="showViewChanger"
+  [selectedCallback]="onCalendarDateSelectedCallback"
+  (monthRendered)="onRenderMonth($event)"
+  (selected)="onSelected($event)"
+  (eventClick)="onEventClicked($event)"
+  (eventDblClick)="onEventDblClicked($event)"
+  (eventContextMenu)="onCalendarEventContextMenu($event)"
+  [eventTooltip]="eventTooltip"
+  [iconTooltip]="iconTooltip"
+  [dayLegend]="dayLegend"
  
-    (selected)="onSelected($event)"
-    (eventClick)="onEventClicked($event)"
-    (eventDblClick)="onEventDblClicked($event)"
-     (eventContextMenu)="onCalendarEventContextMenu($event)"
-     [eventTooltip]="eventTooltip"
-     [iconTooltip]="iconTooltip"
 >
   <div soho-calendar-monthview></div>
   <div soho-calendar-week-view></div>
 </div>
-
-
- 
